@@ -172,6 +172,30 @@ deliveries.forEach(function(delivery){
 			delivery.commission.insurance = commission/2;
 			delivery.commission.treasury = (delivery.distance/500)+1;
 			delivery.commission.convargo = commission/2 - ((delivery.distance/500)+1);
+
+			actors.forEach(function(actor){
+				if(delivery.id == actor.deliveryId){
+					var commission = 0.30*shippingPrice;
+					actor.payment.forEach(function(pay){
+						if(pay.who == 'shipper'){
+							pay.amount = delivery.price;
+						}
+						else if(pay.who == 'trucker'){
+							pay.amount = shippingPrice-commission;
+						}
+						else if(pay.who == 'treasury'){
+							var priceT = (delivery.distance/500)+1;
+							pay.amount = priceT;
+						}
+						else if(pay.who == 'insurance'){
+							pay.amount = commission/2;
+						}
+						else if(pay.who == 'convargo'){
+							pay.amount = (commission/2)-((delivery.distance/500)+1);
+						}
+					})
+				}
+			})
 		}
 	})
 })    
