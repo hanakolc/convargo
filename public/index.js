@@ -152,7 +152,17 @@ deliveries.forEach(function(delivery){
 	truckers.forEach(function(trucker){
 		if(trucker.id == delivery.truckerId){
 			var distance = delivery.distance*trucker.pricePerKm;
-			var volume = delivery.volume*trucker.pricePerVolume;
+			var newPrice = trucker.pricePerVolume;
+			if(delivery.volume > 5 && delivery.volume < 11){
+				newPrice = trucker.pricePerVolume*0.9;
+			}
+			else if(delivery.volume > 10 && delivery.volume < 26){
+				newPrice = trucker.pricePerVolume*0.7;
+			}
+			else if(delivery.volume > 25){
+				newPrice = trucker.pricePerVolume*0.5;
+			}
+			var volume = delivery.volume*newPrice;
 			var shippingPrice = distance+volume;
 			console.log(shippingPrice);
 		}
