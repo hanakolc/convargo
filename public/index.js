@@ -164,7 +164,13 @@ deliveries.forEach(function(delivery){
 			}
 			var volume = delivery.volume*newPrice;
 			var shippingPrice = distance+volume;
+			delivery.price = shippingPrice;
 			console.log(shippingPrice);
+			var commission = shippingPrice*0.30;
+			delivery.commission.insurance = commission/2;
+			delivery.commission.treasury = (delivery.distance/500)+1;
+			delivery.commission.convargo = commission/2 - ((delivery.distance/500)+1);
 		}
 	})
 })    
+	
