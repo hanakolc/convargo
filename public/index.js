@@ -151,6 +151,8 @@ console.log(actors);
 deliveries.forEach(function(delivery){
 	truckers.forEach(function(trucker){
 		if(trucker.id == delivery.truckerId){
+			delivery.options.deductibleReduction = true;
+			trucker.pricePerVolume +=1;
 			var distance = delivery.distance*trucker.pricePerKm;
 			var newPrice = trucker.pricePerVolume;
 			if(delivery.volume > 5 && delivery.volume < 11){
